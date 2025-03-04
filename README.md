@@ -34,19 +34,42 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
     
 * **Internal Operation:**
  <p align="center"><img src="images/mac.jpg" alt="Mac Unit Internal structure " style="display: block; margin: 0 auto;"></p>
+ <p align="center"><img src="images/macfunc.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
     * A 24-bit register within the MAC unit stores the intermediate result.
     
     * On the positive edge (posedge) of the clock, the multiplication ('a' * 'w') and addition of 'carry_in' is performed.
     * On the negative edge (negedge) of the clock, the computed value is transferred to the 'temp' output register.
 
-  <p align="center"><img src="images/macfunc.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+  
 * **Systolic Array:**
+   <p align="center"><img src="images/sysdesign.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+
     * 4x4 array of interconnected MAC units.
     * Implements the matrix multiplication algorithm.
+    * Consists of 16 MAC units, weight memory, feature memory, quantization unit, and activation unit.
+    * Inputs 'i1', 'i2', 'i3', 'i4' are 4 elements of the input matrix, received clock cycle by clock cycle.
+    * Outputs 'sum1', 'sum2', ..., 'sum16' are the partial sums.
+    * Propagated inputs 'a1', 'a2', ..., 'a16' are passed between MAC units on each clock cycle.
+    * Feature memory (red block) and weight memory (orange block) are used for storing input data.
+* **Weight Memory:**
+    * Stores the 8-bit weights for the matrix multiplication.
+    * Consists of 16 registers, denoted as w11, w12, w13, w14, ..., w44.
+* **Feature Memory:**
+    * Stores the 8-bit input features for the matrix multiplication.
+    * Consists of 16 registers, denoted as a11, a12, a13, a14, ..., a44.
 * **Quantization Unit:**
     * Thresholds 24-bit partial sums to 8-bit values.
+    * This process reduces the dynamic range of the partial sums, making them compatible with subsequent processing stages and memory storage.
 * **Activation Unit:**
     * Applies non-linear transformations to the quantized outputs.
+    * This could involve functions like ReLU, sigmoid, or tanh, introducing non-linearity into the computation, which is essential for learning complex patterns.
+    * The output of the activation unit is fed back to the feature memory.
+* **Matrix Multiplication:**
+    * The systolic array performs the matrix multiplication of the weight matrix (W) and the input feature matrix (A) to produce the output matrix (C).
+    * The elements of the output matrix C are computed on a clock-by-clock basis.
+      
+       <p align="center"><img src="images/mul.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+              <p align="center"><img src="images/mulresult.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
 
 ## Simulation Results
 
