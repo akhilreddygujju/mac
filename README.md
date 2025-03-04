@@ -35,11 +35,11 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
 * **Internal Operation:**
  <p align="center"><img src="images/mac.jpg" alt="Mac Unit Internal structure " style="display: block; margin: 0 auto;"></p>
     * A 24-bit register within the MAC unit stores the intermediate result.
-     <p align="center"><img src="images/macfunc.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+    
     * On the positive edge (posedge) of the clock, the multiplication ('a' * 'w') and addition of 'carry_in' is performed.
     * On the negative edge (negedge) of the clock, the computed value is transferred to the 'temp' output register.
 
-    
+  <p align="center"><img src="images/macfunc.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
 * **Systolic Array:**
     * 4x4 array of interconnected MAC units.
     * Implements the matrix multiplication algorithm.
