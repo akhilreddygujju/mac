@@ -33,13 +33,14 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
     * 'temp': 24-bit output, storing the result of the multiplication and addition.
     
 * **Internal Operation:**
- <p align="center"><img src="images/mac.jpg" alt="Mac Unit Internal structure " style="display: block; margin: 0 auto;"></p>
- <p align="center"><img src="images/macfunc.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
-    * A 24-bit register within the MAC unit stores the intermediate result.
-    
-    * On the positive edge (posedge) of the clock, the multiplication ('a' * 'w') and addition of 'carry_in' is performed.
-    * On the negative edge (negedge) of the clock, the computed value is transferred to the 'temp' output register.
+  <p align="center"><img src="images/mac.jpg" alt="Mac Unit Internal structure" style="display: block; margin: 0 auto;"></p>
+  <p align="center"><img src="images/macfunc.jpg" alt="Depicts the functioning of the Mac with the clock" style="display: block; margin: 0 auto;"></p>
 
+  * A 24-bit register within the MAC unit stores the intermediate result.
+
+  * On the positive edge (posedge) of the clock, the multiplication (`a` * `w`) and addition of `carry_in` is performed.
+
+  * On the negative edge (negedge) of the clock, the computed value is transferred to the `temp` output register.
   
 * **Systolic Array:**
    <p align="center"><img src="images/sysdesign.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
@@ -51,6 +52,8 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
     * Outputs 'sum1', 'sum2', ..., 'sum16' are the partial sums.
     * Propagated inputs 'a1', 'a2', ..., 'a16' are passed between MAC units on each clock cycle.
     * Feature memory (red block) and weight memory (orange block) are used for storing input data.
+   <p align="center"><img src="images/sysoverview.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+
 * **Weight Memory:**
     * Stores the 8-bit weights for the matrix multiplication.
     * Consists of 16 registers, denoted as w11, w12, w13, w14, ..., w44.
@@ -69,20 +72,30 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
     * The elements of the output matrix C are computed on a clock-by-clock basis.
       
        <p align="center"><img src="images/mul.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
-              <p align="center"><img src="images/mulresult.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
 
 ## Simulation Results
+* **MAC Unit Verification:**
+    * The MAC unit's functionality was verified using Icarus Verilog and Cadence XCelium.
+    * Test cases covered various input combinations, demonstrating correct multiplication and accumulation.
+    * Simulation results:
+       <p align="center"><img src="images/macresult.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+        <p align="center"><img src="images/maccadence.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
 
-* **Functional Verification:**
+        * Inputs: a = 7, w = 8, carry_in = 0; Output: temp = 56
+    * The output 'temp' register updates on the negative edge of the clock.
+    * Waveform simulations in Cadence XCelium visually confirm the MAC unit's behavior.
+
+* **Systolic Array Verification:**
     * The testbench simulates the multiplication of two 4x4 matrices.
     * Cadence XCelium simulations confirm the correct operation of the design.
-    * **Matrix Multiplication Results:** As shown in the "Midterm Report (1).pdf" the simulation shows the changes in memory across clock cycles.
-    * Example results from the report:
-        * sum4[23:0] changes to 27
-        * sum8[23:0] changes to 40
-        * sum12[23:0] changes to 14
-        * sum16[23:0] changes to 8
-    * The report contains the waveforms of the simulation.
+   * **Matrix Multiplication Results:**
+    * The systolic array performs the matrix multiplication of the weight matrix (W) and the input feature matrix (A) to produce the output matrix (C).
+    * The elements of the output matrix C are computed on a clock-by-clock basis.
+      
+      <p align="center"><img src="images/mulresult.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+      <p align="center"><img src="images/syscadence.jpg" alt="Depicts the functioning of the Mac with the clock " style="display: block; margin: 0 auto;"></p>
+
+
 
 ## Usage
 
@@ -96,7 +109,7 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
 
 * **rtl/**: Contains the Verilog RTL code for the MAC unit and systolic array.
 * **testbench/**: Includes the Verilog testbench for simulation.
-* **docs/**: Contains the "Midterm Report (1).pdf" with simulation results.
+* **docs/**: Contains the "Midterm Report (1).pdf" with simulation results and a Readme file with commands on how to run.
 
 ## Acknowledgments
 
@@ -104,4 +117,4 @@ This project was completed as a midterm exam for the IECE421/521: Digital ASIC D
 
 ## Contact
 
-For any questions or further information, please contact: Akhil Reddy Gujju.
+For any questions or further information, please contact: akhilreddy1607@gmail.com
