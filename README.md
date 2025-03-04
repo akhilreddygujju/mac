@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements a 4x4 systolic array, a hardware architecture designed for efficient matrix multiplication. It simulates a simplified version of Google's Tensor Processing Unit (TPU), as required for the IECE421/521: Digital ASIC Design midterm exam. The project utilizes Verilog RTL for design and Cadence XCelium for verification.
+This project implements a 4x4 systolic array, a hardware architecture designed for efficient matrix multiplication. It simulates a simplified version of Google's Tensor Processing Unit (TPU). The project utilizes Verilog RTL for design and Cadence XCelium for verification.
 
 ## Key Features
 
@@ -17,8 +17,21 @@ This project implements a 4x4 systolic array, a hardware architecture designed f
 ## Design Components
 
 * **MAC Unit:**
-    * Performs 8-bit multiplication and adds the 16-bit product to a 24-bit partial sum.
-    * Outputs a 24-bit partial sum.
+
+* **Function:** The MAC unit is the fundamental building block, responsible for multiplying two 8-bit inputs ('a' and 'w') and adding the result to a 24-bit 'carry_in' value.
+* **Inputs:**
+    * 'a': 8-bit input.
+    * 'w': 8-bit input.
+    * 'clock': 1-bit clock signal.
+    * 'reset': 1-bit asynchronous reset signal.
+    * 'carry_in': 24-bit partial sum input.
+* **Outputs:**
+    * 'a1': 8-bit output (likely a delayed or processed version of 'a').
+    * 'temp': 24-bit output, storing the result of the multiplication and addition.
+* **Internal Operation:**
+    * A 24-bit register within the MAC unit stores the intermediate result.
+    * On the positive edge (posedge) of the clock, the multiplication ('a' * 'w') and addition of 'carry_in' is performed.
+    * On the negative edge (negedge) of the clock, the computed value is transferred to the 'temp' output register.
 * **Systolic Array:**
     * 4x4 array of interconnected MAC units.
     * Implements the matrix multiplication algorithm.
