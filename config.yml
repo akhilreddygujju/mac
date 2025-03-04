@@ -1,0 +1,3 @@
+title: 4x4 Systolic Array Implementation
+description: "Verilog RTL implementation and simulation of a 4x4 systolic array for matrix multiplication, mimicking a simplified TPU. Project completed as a midterm exam for IECE421/521: Digital ASIC Design."
+theme: jekyll-theme-Minimal
